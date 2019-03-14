@@ -1,5 +1,7 @@
 function [length_list, foci_list, birth_list, division_list, cell_list, cell_names, save_name, save_name_png, display_name] = plot_channel(dir_name, cell_data, px_to_mu, IW_thr, fnames_sort, channels, channle_idx, xlim_max, ylim_max, time_int)
 
+parameters % load parameters
+
 fov_index = find(fnames_sort(:,1) == channels(channle_idx,1));
 fnames_fov = fnames_sort(fov_index,:);
 

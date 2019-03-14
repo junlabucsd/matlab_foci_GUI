@@ -60,7 +60,7 @@ parameters % load parameters
 
 %-------------start pre-prosessing-----------
 handles.dir_name = data_dir;
-handles.cell_data = cell_foci_file_path;
+handles.cell_data = load(cell_foci_file_path);
 handles.px_to_mu = px_to_mu;
 handles.IW_thr = 5000; % threshold of intensity weighting
 handles.n_oc = 1; %number of overlapping cell cycle. Leave as 1
