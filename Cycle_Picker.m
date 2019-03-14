@@ -57,10 +57,10 @@ clc;
 % close all;
 
 %-------------start pre-prosessing-----------
-handles.dir_name = '/Volumes/JunLabSSD_04/bsub_unitcell/20180727_BS43_1/analysis/';
-handles.cell_data = load([handles.dir_name 'cell_data/b1_mothercells_1542_foci.mat']);
+handles.dir_name = '/Volumes/JunLabSSD_04/bsub_unitcell/20190307_BS45_30/analysis/';
+handles.cell_data = load([handles.dir_name 'cell_data/b30_mothercells_2541_foci.mat']);
 handles.px_to_mu = 0.11;	%handles.px_to_mu = 0.065;
-handles.IW_thr = 8000; % threshold of intensity weighting	handles.IW_thr = 4074; % threshold of intensity weighting
+handles.IW_thr = 5000; % threshold of intensity weighting	handles.IW_thr = 4074; % threshold of intensity weighting
 handles.n_oc = 1; %number of overlapping cell cycle (default value)	handles.n_oc = 2; %number of overlapping cell cycle (default value)
 handles.xlim_max = 500;	%handles.xlim_max = 1000;
 handles.ylim_max = 8;	%handles.ylim_max = 30;
