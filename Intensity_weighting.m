@@ -1,12 +1,10 @@
 clear all; clc;
 % close all;
 
-%% load data
-cell_data = load('/Volumes/JunLabSSD_04/bsub_unitcell/20181130_BS43_10/analysis/cell_data/cells_20181213_2_foci.mat');
+parameters
 
-px_to_mu = 0.11;
-start_cut = 100;
-end_cut = 250;
+%% load data
+cell_data = load(cell_foci_file_path);
 
 % extract data
 L = length(fieldnames(cell_data));
@@ -22,7 +20,7 @@ for i = 1:L
 
     channel = cell_data.(fnames{i});
 
-    if isempty(channel.foci_h) == 0 && channel.division_time %% < end_cut %&& channel.peak > 0 && channel.peak < 2000
+    if isempty(channel.foci_h) == 0 && channel.division_time 
 
         for j = 1:N
 
