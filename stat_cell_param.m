@@ -2,14 +2,15 @@ clear all; clc;
 close all;
 warning off;
 
-%% load data
 
-% dir_name = '../../analysis/picked/';
-dir_name = '/Volumes/JunLabSSD_04/bsub_unitcell/20180727_BS43_1/analysis/picked/';
+%% load data
+parameters
+
+dir_name = [data_dir 'picked/'];
 fnames = dir( [ dir_name '/*.mat' ]);
 
-px_to_mu = 0.11;
-t_int = 1;
+% px_to_mu = 0.11;
+t_int = 1; % leave as 1
 
 %% extract and calculate all cell data
 

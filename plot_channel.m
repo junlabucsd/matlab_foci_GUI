@@ -1,5 +1,7 @@
 function [length_list, foci_list, birth_list, division_list, cell_list, cell_names, save_name, save_name_png, display_name] = plot_channel(dir_name, cell_data, px_to_mu, IW_thr, fnames_sort, channels, channle_idx, xlim_max, ylim_max, time_int)
 
+parameters % load parameters
+
 fov_index = find(fnames_sort(:,1) == channels(channle_idx,1));
 fnames_fov = fnames_sort(fov_index,:);
 
@@ -106,12 +108,12 @@ for k = 1:L_channles
 
 end
 
-b4 = plot([0 xlim_max],[0 0]); 
+b4 = plot([0 xlim_maximum],[0 0]); 
 b4.Color = [0 0 0]; set(b4,'LineWidth',0.5,'Markersize',2,'Marker','None','MarkerFaceColor',[1 1 1],'LineStyle','--');
 
 txt_tmp = sprintf('frame index (%d min/frame)',time_int);
 xlabel(txt_tmp,'fontsize',10);
-xlim([180 xlim_max])
+xlim([xlim_minimum xlim_maximum])
 %     set(gca,'XScale','linear','XTick',[0 30 60 90 120 150 180 210 240 270 300 330 360],'XTickLabel', ...
 %             {'0','30','60','90','120','150','180','210','240','270','300','330','360'})
 %         

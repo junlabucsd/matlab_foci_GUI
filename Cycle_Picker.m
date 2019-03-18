@@ -56,15 +56,17 @@ function Cycle_Picker_OpeningFcn(hObject, eventdata, handles, varargin)
 clc;
 % close all;
 
+parameters % load parameters
+
 %-------------start pre-prosessing-----------
-handles.dir_name = '/Volumes/JunLabSSD_04/bsub_unitcell/20190307_BS45_30/analysis/';
-handles.cell_data = load([handles.dir_name 'cell_data/b30_mothercells_2541_foci.mat']);
-handles.px_to_mu = 0.11;	%handles.px_to_mu = 0.065;
-handles.IW_thr = 5000; % threshold of intensity weighting	handles.IW_thr = 4074; % threshold of intensity weighting
-handles.n_oc = 1; %number of overlapping cell cycle (default value)	handles.n_oc = 2; %number of overlapping cell cycle (default value)
-handles.xlim_max = 500;	%handles.xlim_max = 1000;
-handles.ylim_max = 8;	%handles.ylim_max = 30;
-handles.time_int = 1;	%handles.time_int = 3;
+handles.dir_name = data_dir;
+handles.cell_data = load(cell_foci_file_path);
+handles.px_to_mu = px_to_mu;
+handles.IW_thr = IW_thr; % threshold of intensity weighting
+handles.n_oc = 1; %number of overlapping cell cycle. Leave as 1
+handles.xlim_max = 1;	% ignore
+handles.ylim_max = ylim_maximum;	%handles.ylim_max = 30;
+handles.time_int = 1;	% Leave as 1
 %%%
 
 if exist([handles.dir_name 'picked/']) == 0
@@ -109,7 +111,7 @@ end
 handles.channels(1,:) = [];
 
 handles.fnames_sort = fnames_sort;
-handles.channle_idx = 25;
+handles.channle_idx = channel_start;
 
 [handles.length_list, handles.foci_list, handles.birth_list, handles.division_list, handles.cell_list, handles.cell_names, handles.save_name, handles.save_name_png, handles.display_name] ...
     = plot_channel(handles.dir_name, handles.cell_data, handles.px_to_mu, handles.IW_thr, handles.fnames_sort, handles.channels, handles.channle_idx, handles.xlim_max, handles.ylim_max, handles.time_int);
