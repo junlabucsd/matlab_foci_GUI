@@ -24,6 +24,7 @@ k_1 = 1;
 c_1 = 1;
 
 cmap = colormap(gray);
+% cmap = colormap(summer);
 
 for k = 1:L_channles
     fname_rec = ['f' num2str(fnames_channel(k,1),'%.2d') 'p' num2str(fnames_channel(k,2),'%.4d') 't' num2str(fnames_channel(k,3),'%.4d') 'r' num2str(fnames_channel(k,4),'%.2d')];
@@ -64,11 +65,30 @@ for k = 1:L_channles
     hold on;
 
     h1 = plot(time_temp,length_temp);
-    h1.Color = [0.75 0.75 0.75]; set(h1,'LineWidth',0.5,'Markersize',2,'Marker','o','MarkerFaceColor',[0.75 0.75 0.75],'LineStyle','-');
+    h1.Color = [0.75 0.75 0.75]; set(h1,'LineWidth',2,'Markersize',2,'Marker','o','MarkerFaceColor',[0.75 0.75 0.75],'LineStyle','-');
 
     %obtain foci positions
     for p=1:length(cell_temp.times)
+        % check if there are foci at this time point
         if isempty(cell_temp.disp_l{1,p})==0
+            
+            % plot fl profile line
+            if plot_fl_profile
+                colormap(summer);
+                x_positions = ones(1, length(cell_temp.fl_profiles_sub_c2{1,p})) * double(cell_temp.times(1,p));
+                y_positions = linspace(0, length_temp(1,p), length(cell_temp.fl_profiles_sub_c2{1,p}));
+                z_positions = cell_temp.fl_profiles_sub_c2{1,p};
+                
+
+                h_flprofile = scatter(x_positions, y_positions, fl_profile_ms, z_positions, ...
+                                      'filled', 'square');
+%                 h_flprofile.Color = colormap(summer);
+                h_flprofile.MarkerFaceAlpha = 0.25;
+                set(h_flprofile,'HitTest','off'); % these objects will not trigger GUI mouse click
+                            
+            end
+            
+            % plot eeach foci individually
             for q=1:length(cell_temp.disp_l{1,p})
 
                 color_idx_temp = (cell_temp.disp_w{1,p}(1,q)+width_temp(1,p)/2)/width_temp(1,p);
@@ -79,23 +99,27 @@ for k = 1:L_channles
                 if cell_temp.foci_h{1,p}(1,q)>=IW_thr
                     h3 = plot(cell_temp.times(1,p),cell_temp.disp_l{1,p}(1,q)-0.05+length_temp(1,p)/2);
                     h3.Color = color_temp; set(h3,'LineWidth',1,'Markersize',4*(cell_temp.foci_h{1,p}(1,q)/IW_thr),'Marker','o','MarkerFaceColor',[1 1 1],'LineStyle','None');
-
+                    set(h3,'HitTest','off'); % these objects will not trigger GUI mouse click
+                    
                     foci_list(i_1,:) = [double(cell_temp.times(1,p)), cell_temp.disp_l{1,p}(1,q)-0.05+length_temp(1,p)/2]; 
                     i_1 = i_1+1;
 
                     h4 = plot(cell_temp.times(1,p),cell_temp.disp_l{1,p}(1,q)+0.05+length_temp(1,p)/2);
                     h4.Color = color_temp; set(h4,'LineWidth',1,'Markersize',4*(cell_temp.foci_h{1,p}(1,q)/IW_thr),'Marker','o','MarkerFaceColor',[1 1 1],'LineStyle','None');
-
+                    set(h4,'HitTest','off'); % these objects will not trigger GUI mouse click
+                    
                     foci_list(i_1,:) = [double(cell_temp.times(1,p)), cell_temp.disp_l{1,p}(1,q)+0.05+length_temp(1,p)/2]; 
                     i_1 = i_1+1;
                 else
                     h3 = plot(cell_temp.times(1,p), cell_temp.disp_l{1,p}(1,q)+length_temp(1,p)/2);
                     h3.Color = color_temp; set(h3,'LineWidth',1,'Markersize',(4*(2*cell_temp.foci_h{1,p}(1,q)/IW_thr))^1.5,'Marker','o','MarkerFaceColor',[1 1 1],'LineStyle','None');
-
+                    set(h3,'HitTest','off'); % these objects will not trigger GUI mouse click
+                    
                     foci_list(i_1,:) = [double(cell_temp.times(1,p)), cell_temp.disp_l{1,p}(1,q)+length_temp(1,p)/2]; 
                     i_1 = i_1+1;
                 end
             end
+            
         end
     end
 

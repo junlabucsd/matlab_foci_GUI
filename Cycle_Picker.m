@@ -182,17 +182,29 @@ function axes2_ButtonDownFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+parameters
+
 a = get(hObject, 'Currentpoint');
 
 handles.clicks = handles.clicks + 1;
 guidata(hObject, handles);
 
-color_idx =  mod(handles.clicks,4);
+color_idx =  mod(handles.clicks,3);
 
+% scale for changing y value to x as the axis are different units
+x_y_scale = (xlim_maximum - xlim_minimum) / (ylim_maximum + 1);
+
+% calculate distance between clicked point and all foci. X and Y
 for i = 1:size(handles.foci_list, 1)
-    d_1(i) = ((a(1, 1)-handles.foci_list(i, 1))^2 + ((a(1, 2)-handles.foci_list(i,2))*12)^2)^0.5;
+    d_1(i) = ((a(1, 1)-handles.foci_list(i, 1))^2 + ((a(1, 2)-handles.foci_list(i,2))*x_y_scale)^2)^0.5;
 end
-[R_1, j_1] = min(d_1);
+
+% % calculate distance but only use y
+% for i = 1:size(handles.foci_list, 1)
+%     d_1(i) = (((a(1, 1)-handles.foci_list(i, 1))*10)^2 + ((a(1, 2)-handles.foci_list(i,2)))^2)^0.5;
+% end
+
+[R_1, j_1] = min(d_1); % miniminum distance 
 
 if color_idx == 1
 
@@ -230,7 +242,12 @@ if color_idx == 1
         handles.cell_list.(handles.cell_name_n_tmp).initiation_mass_n2 = handles.initiation_mass_n;
         handles.cell_list.(handles.cell_name_n_tmp).n_oc_n2 = handles.n_oc_curr;
     end
+    
 
+    j_3 = sum(handles.birth_list <= handles.initiation_time); % index of birth time before initiation click
+    handles.p3 = plot( handles.birth_list(j_3, 1), handles.initiation_pos, 's', 'LineWidth',1 , 'MarkerEdgeColor','r','MarkerFaceColor','None','MarkerSize',10);
+    handles.birth_time_m = handles.birth_list(j_3, 1);
+    handles.l2 = plot( [handles.birth_time_m handles.initiation_time], [handles.initiation_pos handles.initiation_pos], '-', 'LineWidth',1 , 'MarkerEdgeColor','b','MarkerFaceColor','none','MarkerSize',10, 'Color', [0.75 0.75 0.75]);
 
 elseif color_idx == 2
 
@@ -241,15 +258,17 @@ elseif color_idx == 2
 
     handles.l1 = plot( [handles.initiation_time handles.termination_time], [handles.initiation_pos handles.termination_pos], '-', 'LineWidth',1 , 'MarkerEdgeColor','b','MarkerFaceColor','none','MarkerSize',10, 'Color', [0.75 0.75 0.75]);
 
-elseif color_idx == 3
+% birth before initiation is handled automatically now. 
+% elseif color_idx == 3
+%     beep= 0;
 
-    for i = 1:size(handles.birth_list, 1)
-        d_3(i) = abs(a(1, 1)-handles.birth_list(i, 1));
-    end
-    [R_3, j_3] = min(d_3);
-    handles.p3 = plot( handles.birth_list(j_3, 1), handles.initiation_pos, 's', 'LineWidth',1 , 'MarkerEdgeColor','r','MarkerFaceColor','None','MarkerSize',10);
-    handles.birth_time_m = handles.birth_list(j_3, 1);
-    handles.l2 = plot( [handles.birth_time_m handles.initiation_time], [handles.initiation_pos handles.initiation_pos], '-', 'LineWidth',1 , 'MarkerEdgeColor','b','MarkerFaceColor','none','MarkerSize',10, 'Color', [0.75 0.75 0.75]);
+%     for i = 1:size(handles.birth_list, 1)
+%         d_3(i) = abs(a(1, 1)-handles.birth_list(i, 1));
+%     end
+%     [R_3, j_3] = min(d_3);
+%     handles.p3 = plot( handles.birth_list(j_3, 1), handles.initiation_pos, 's', 'LineWidth',1 , 'MarkerEdgeColor','r','MarkerFaceColor','None','MarkerSize',10);
+%     handles.birth_time_m = handles.birth_list(j_3, 1);
+%     handles.l2 = plot( [handles.birth_time_m handles.initiation_time], [handles.initiation_pos handles.initiation_pos], '-', 'LineWidth',1 , 'MarkerEdgeColor','b','MarkerFaceColor','none','MarkerSize',10, 'Color', [0.75 0.75 0.75]);
 
 elseif color_idx == 0
 
@@ -285,7 +304,7 @@ end
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton1.
+% --- Executes on button press in pushbutton1. Save 
 function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -299,7 +318,7 @@ saveas(handles.axes2,handles.save_name_png,'png');
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton2.
+% --- Executes on button press in pushbutton2. Back
 function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -327,7 +346,7 @@ handles.termination_mass = [];
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton3.
+% --- Executes on button press in pushbutton3. Forward
 function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -356,7 +375,7 @@ handles.termination_mass = [];
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton4.
+% --- Executes on button press in pushbutton4. Change oc
 function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -368,7 +387,7 @@ set(handles.text3, 'String' , num2str(handles.n_oc_curr, '%1d'));
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton5.
+% --- Executes on button press in pushbutton5. Change oc
 function pushbutton5_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -380,13 +399,13 @@ set(handles.text3, 'String' , num2str(handles.n_oc_curr, '%1d'));
 guidata(hObject, handles);
 
 
-% --- Executes on button press in pushbutton6.
+% --- Executes on button press in pushbutton6. Undo
 function pushbutton6_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-color_idx =  mod(handles.clicks,4);
+color_idx =  mod(handles.clicks,3);
 
 %can only undo one generation
 if color_idx == 1
@@ -405,7 +424,16 @@ if color_idx == 1
         handles.cell_list.(handles.cell_name_n_tmp) = rmfield(handles.cell_list.(handles.cell_name_n_tmp),'initiation_mass_n');
         handles.cell_list.(handles.cell_name_n_tmp) = rmfield(handles.cell_list.(handles.cell_name_n_tmp),'n_oc_n');
     end
+    
+    % undo line from initiation to birth
+    if isempty(handles.p3)==0
+        handles.p3.Visible = 'off';
+    end
+    if isempty(handles.l2)==0
+        handles.l2.Visible = 'off';
+    end
 
+    
 elseif color_idx == 2
 
     if isempty(handles.p2)==0
@@ -415,14 +443,15 @@ elseif color_idx == 2
         handles.l1.Visible = 'off';
     end
 
-elseif color_idx == 3
-
-    if isempty(handles.p3)==0
-        handles.p3.Visible = 'off';
-    end
-    if isempty(handles.l2)==0
-        handles.l2.Visible = 'off';
-    end
+% birth time is handled automatically now
+% elseif color_idx == 3
+% 
+%     if isempty(handles.p3)==0
+%         handles.p3.Visible = 'off';
+%     end
+%     if isempty(handles.l2)==0
+%         handles.l2.Visible = 'off';
+%     end
 
 elseif color_idx == 0
 

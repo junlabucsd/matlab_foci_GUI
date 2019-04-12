@@ -19,4 +19,4 @@ T = table(cell_id', initiation_time_m', termination_time');
 T.Properties.VariableNames = header;
 
 % save to csv
-writetable(T, [data_dir 'cc_data_exp_data.csv'], 'Delimiter', ',');
+writetable(T, [data_dir 'cc_20190411_b35.csv'], 'Delimiter', ',');
