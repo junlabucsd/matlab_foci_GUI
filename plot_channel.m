@@ -73,18 +73,20 @@ for k = 1:L_channles
         
         % plot fl profile line
             if plot_fl_profile
-                colormap(summer);
-                x_positions = ones(1, length(cell_temp.fl_profiles_sub_c2{1,p})) * double(cell_temp.times(1,p));
-                y_positions = linspace(0, length_temp(1,p), length(cell_temp.fl_profiles_sub_c2{1,p}));
-                z_positions = cell_temp.fl_profiles_sub_c2{1,p};
-                
+                if sum(cell_temp.fl_profiles_sub_c2{1,p})
+                    
+                    colormap(summer);
+                    x_positions = ones(1, length(cell_temp.fl_profiles_sub_c2{1,p})) * double(cell_temp.times(1,p));
+                    y_positions = linspace(0, length_temp(1,p), length(cell_temp.fl_profiles_sub_c2{1,p}));
+                    z_positions = cell_temp.fl_profiles_sub_c2{1,p};
 
-                h_flprofile = scatter(x_positions, y_positions, fl_profile_ms, z_positions, ...
-                                      'filled', 'square');
-%                 h_flprofile.Color = colormap(summer);
-                h_flprofile.MarkerFaceAlpha = 0.25;
-                set(h_flprofile,'HitTest','off'); % these objects will not trigger GUI mouse click
-                            
+
+                    h_flprofile = scatter(x_positions, y_positions, fl_profile_ms, z_positions, ...
+                                          'filled', 'square');
+    %                 h_flprofile.Color = colormap(summer);
+                    h_flprofile.MarkerFaceAlpha = 0.25;
+                    set(h_flprofile,'HitTest','off'); % these objects will not trigger GUI mouse click
+                end
             end
         
         if isempty(cell_temp.disp_l{1,p})==0
