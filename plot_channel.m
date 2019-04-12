@@ -70,9 +70,8 @@ for k = 1:L_channles
     %obtain foci positions
     for p=1:length(cell_temp.times)
         % check if there are foci at this time point
-        if isempty(cell_temp.disp_l{1,p})==0
-            
-            % plot fl profile line
+        
+        % plot fl profile line
             if plot_fl_profile
                 colormap(summer);
                 x_positions = ones(1, length(cell_temp.fl_profiles_sub_c2{1,p})) * double(cell_temp.times(1,p));
@@ -87,6 +86,8 @@ for k = 1:L_channles
                 set(h_flprofile,'HitTest','off'); % these objects will not trigger GUI mouse click
                             
             end
+        
+        if isempty(cell_temp.disp_l{1,p})==0
             
             % plot eeach foci individually
             for q=1:length(cell_temp.disp_l{1,p})
