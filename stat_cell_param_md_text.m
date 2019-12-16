@@ -78,7 +78,7 @@ for i=1:numel(fnames)
                     initiation_time_g2( mother_cell_counter ) = t_int*double(cell_g2_temp.initiation_time_n);
                     initiation_mass_g2( mother_cell_counter ) = cell_g2_temp.initiation_mass_n;
                     
-                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n*cell_g2_temp.n_oc_n;                   
+                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n*(2^cell_g2_temp.n_oc_n-1);                   
                     initiation_size_g2( initiation_size_counter_g2 ) = (initiation_length_g2( initiation_size_counter_g2 )-cell_width_g2( mother_cell_counter ))*pi*(cell_width_g2( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g2( mother_cell_counter )/2)^3;                    
                     initiation_size_counter_g2 = initiation_size_counter_g2+1;
                     
@@ -86,10 +86,10 @@ for i=1:numel(fnames)
                     initiation_time_g2( mother_cell_counter ) = t_int*double(cell_g2_temp.initiation_time_n);
                     initiation_mass_g2( mother_cell_counter ) = mean([cell_g2_temp.initiation_mass_n,cell_g2_temp.initiation_mass_n2]);
                     
-                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n*cell_g2_temp.n_oc_n;
+                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n*(2^cell_g2_temp.n_oc_n-1);
                     initiation_size_g2( initiation_size_counter_g2 ) = (initiation_length_g2( initiation_size_counter_g2 )-cell_width_g2( mother_cell_counter ))*pi*(cell_width_g2( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g2( mother_cell_counter )/2)^3;
                     initiation_size_counter_g2 = initiation_size_counter_g2+1;
-                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n2*cell_g2_temp.n_oc_n2;
+                    initiation_length_g2( initiation_size_counter_g2 ) = cell_g2_temp.initiation_mass_n2*(2^cell_g2_temp.n_oc_n2-1);
                     initiation_size_g2( initiation_size_counter_g2 ) = (initiation_length_g2( initiation_size_counter_g2 )-cell_width_g2( mother_cell_counter ))*pi*(cell_width_g2( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g2( mother_cell_counter )/2)^3;
                     initiation_size_counter_g2 = initiation_size_counter_g2+1;
                     
@@ -152,7 +152,7 @@ for i=1:numel(fnames)
                     initiation_time_g3( mother_cell_counter ) = t_int*double(cell_g3_temp.initiation_time_n);
                     initiation_mass_g3( mother_cell_counter ) = cell_g3_temp.initiation_mass_n;
                     
-                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n*cell_g3_temp.n_oc_n;                   
+                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n*(2^cell_g3_temp.n_oc_n-1);                   
                     initiation_size_g3( initiation_size_counter_g3 ) = (initiation_length_g3( initiation_size_counter_g3 )-cell_width_g3( mother_cell_counter ))*pi*(cell_width_g3( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g3( mother_cell_counter )/2)^3;                    
                     initiation_size_counter_g3 = initiation_size_counter_g3+1;
                     
@@ -160,10 +160,10 @@ for i=1:numel(fnames)
                     initiation_time_g3( mother_cell_counter ) = t_int*double(cell_g3_temp.initiation_time_n);
                     initiation_mass_g3( mother_cell_counter ) = mean([cell_g3_temp.initiation_mass_n,cell_g3_temp.initiation_mass_n2]);
                     
-                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n*cell_g3_temp.n_oc_n;
+                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n*(2^cell_g3_temp.n_oc_n-1);
                     initiation_size_g3( initiation_size_counter_g3 ) = (initiation_length_g3( initiation_size_counter_g3 )-cell_width_g3( mother_cell_counter ))*pi*(cell_width_g3( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g3( mother_cell_counter )/2)^3;
                     initiation_size_counter_g3 = initiation_size_counter_g3+1;
-                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n2*cell_g3_temp.n_oc_n2;
+                    initiation_length_g3( initiation_size_counter_g3 ) = cell_g3_temp.initiation_mass_n2*(2^cell_g3_temp.n_oc_n2-1);
                     initiation_size_g3( initiation_size_counter_g3 ) = (initiation_length_g3( initiation_size_counter_g3 )-cell_width_g3( mother_cell_counter ))*pi*(cell_width_g3( mother_cell_counter )/2)^2+(4/3)*pi*(cell_width_g3( mother_cell_counter )/2)^3;
                     initiation_size_counter_g3 = initiation_size_counter_g3+1;
                     
